@@ -36,6 +36,7 @@ config ARCH_TEXT_BASE
 	default 0x4fc00000 if MACH_REALQ7
 	default 0x4fc00000 if MACH_GK802
 	default 0x2fc00000 if MACH_TQMA6X
+	default 0x00908400 if MACH_KOSAGI_NOVENA
 	default 0x4fc00000 if MACH_PHYTEC_PFLA02
 	default 0x4fc00000 if MACH_DFI_FS700_M60
 	default 0x4fc00000 if MACH_UDOO
@@ -219,6 +220,10 @@ config MACH_REALQ7
 
 config MACH_GK802
 	bool "Zealz GK802 Mini PC"
+	select ARCH_IMX6
+
+config MACH_KOSAGI_NOVENA
+	bool "Kosagi i.MX6 Novena"
 	select ARCH_IMX6
 
 config MACH_TQMA6X

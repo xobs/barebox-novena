@@ -103,7 +103,9 @@ static int dfi_fs700_m60_init(void)
 	if (!of_machine_is_compatible("dfi,fs700-m60"))
 		return 0;
 
+#ifdef CONFIG_NET
 	phy_register_fixup_for_uid(PHY_ID_AR8031, AR_PHY_ID_MASK, ar8031_phy_fixup);
+#endif
 
 	if (bootsource_get() == BOOTSOURCE_SPI)
 		flag_spi |= BBU_HANDLER_FLAG_DEFAULT;
