@@ -62,7 +62,7 @@ pbl-$(CONFIG_MACH_SABRESD) += imx6q-sabresd.dtb.o
 pbl-$(CONFIG_MACH_GUF_SANTARO) += imx6q-guf-santaro.dtb.o
 pbl-$(CONFIG_MACH_NITROGEN6X) += imx6q-nitrogen6x.dtb.o imx6dl-nitrogen6x.dtb.o
 pbl-$(CONFIG_MACH_UDOO) += imx6q-udoo.dtb.o
-pbl-$(CONFIG_MACH_KOSAGI_NOVENA) += imx6q-kosagi-novena.dtb.o imx6dl-kosagi-no
+pbl-$(CONFIG_MACH_KOSAGI_NOVENA) += imx6q-kosagi-novena.dtb.o imx6dl-kosagi-novena.dtb.o
 
 .SECONDARY: $(obj)/$(BUILTIN_DTB).dtb.S
 .SECONDARY: $(patsubst %,$(obj)/%.S,$(dtb-y))

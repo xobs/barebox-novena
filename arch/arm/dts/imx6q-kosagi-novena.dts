@@ -1,0 +1,23 @@
+/*
+ * Copyright 2013 Sascha Hauer <s.hauer@pengutronix.de>
+ *
+ * The code contained herein is licensed under the GNU General Public
+ * License. You may obtain a copy of the GNU General Public License
+ * Version 2 or later at the following locations:
+ *
+ * http://www.opensource.org/licenses/gpl-license.html
+ * http://www.gnu.org/copyleft/gpl.html
+ */
+
+#ifndef __DTS_V1__
+#define __DTS_V1__
+/dts-v1/;
+#endif
+
+#include "imx6q.dtsi"
+#include "imx6qdl-kosagi-novena.dtsi"
+
+/ {
+	model = "Kosagi i.MX6Q Novena Board";
+	compatible = "kosagi,novena-6q", "kosagi,novena", "fsl,imx6q";
+};
