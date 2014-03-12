@@ -232,6 +232,7 @@
 	pinctrl-0 = <&pinctrl_usbotg>;
 	disable-over-current;
 	dr_mode = "otg";
+	phy_type = "utmi";
 	status = "okay";
 };
 

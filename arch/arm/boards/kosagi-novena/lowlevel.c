@@ -81,7 +81,9 @@ ENTRY_FUNCTION(start_imx6q_kosagi_novena_6q, r0, r1, r2)
 	uint32_t ram_size;
 
 	ram_size = r0;
-	ram_size = SZ_2G;
+	if (ram_size > SZ_1G)
+		ram_size = SZ_1G;
+
 	fdt = (uint32_t)__dtb_imx6q_kosagi_novena_start - get_runtime_offset();
 	barebox_arm_entry(0x10800000, ram_size, fdt);
 }
@@ -94,7 +96,9 @@ ENTRY_FUNCTION(start_imx6dl_kosagi_novena_6dl, r0, r1, r2)
 	uint32_t ram_size;
 
 	ram_size = r0;
-	ram_size = SZ_2G;
+	if (ram_size > SZ_1G)
+		ram_size = SZ_1G;
+
 	fdt = (uint32_t)__dtb_imx6dl_kosagi_novena_start - get_runtime_offset();
 	barebox_arm_entry(0x10800000, ram_size, fdt);
 }

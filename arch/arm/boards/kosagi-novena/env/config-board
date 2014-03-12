@@ -3,4 +3,8 @@
 # board defaults, do not change in running system. Change /env/config
 # instead
 
-global.linux.bootargs.base="console=ttymxc1,115200"
+global linux.bootargs.console
+global.linux.bootargs.console="console=ttymxc1,115200"
+
+global linux.bootargs.drm
+global.linux.bootargs.drm="drm.debug=4"

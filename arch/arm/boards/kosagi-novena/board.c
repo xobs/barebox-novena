@@ -38,15 +38,8 @@
 
 static int kosagi_novena_init(void)
 {
-	printf("Hello there\n");
 	if (!of_machine_is_compatible("kosagi,novena"))
 		return 0;
-
-	imx6_bbu_internal_mmc_register_handler("mmc", "/dev/mmc3.boot0",
-		BBU_HANDLER_FLAG_DEFAULT, NULL, 0, 0);
-
-	armlinux_set_bootparams((void *)0x10000100);
-	armlinux_set_architecture(MACH_TYPE_MX6Q_SABRESD);
 
 	return 0;
 }

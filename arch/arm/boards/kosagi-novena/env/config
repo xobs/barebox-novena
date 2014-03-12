@@ -1,0 +1,68 @@
+#!/bin/sh
+
+hostname=FIXME
+if [ -z "$user" ]; then
+#	user=
+fi
+
+# Enter MAC address here if not retrieved automatically
+#eth0.ethaddr=de:ad:be:ef:00:00
+
+# use 'dhcp' to do dhcp in barebox and in kernel
+# use 'none' if you want to skip kernel ip autoconfiguration
+ip=dhcp
+global.dhcp.vendor_id=barebox
+
+# or set your networking parameters here
+#eth0.ipaddr=a.b.c.d
+#eth0.netmask=a.b.c.d
+#eth0.serverip=a.b.c.d
+#eth0.gateway=a.b.c.d
+
+# can be either 'tftp', 'nfs', 'nand', 'nor' or 'disk'
+kernel_loc=disk
+# can be either 'net', 'nand', 'nor', 'disk' or 'initrd'
+rootfs_loc=disk
+# can be either 'tftp', 'nfs', 'nand', 'nor', 'disk' or none
+oftree_loc=disk
+
+# for flash based rootfs: 'jffs2' or 'ubifs'
+# in case of disk any regular filesystem like 'ext2', 'ext3', 'reiserfs'
+rootfs_type=ext4
+# where is the rootfs in case of 'rootfs_loc=disk' (linux name)
+rootfs_part_linux_dev=mmcblk0p2
+rootfsimage=rootfs-${global.hostname}.$rootfs_type
+
+# where is the kernel image in case of 'kernel_loc=disk'
+kernel_part=disk0.2
+
+kernelimage=zImage
+
+bareboximage=barebox-${global.hostname}.bin
+bareboxenvimage=barebox-${global.hostname}.bin
+
+if [ -n $user ]; then
+	bareboximage="$user"-"$bareboximage"
+	bareboxenvimage="$user"-"$bareboxenvimage"
+	kernelimage="$user"-"$kernelimage"
+	rootfsimage="$user"-"$rootfsimage"
+	nfsroot="/home/$user/nfsroot/${global.hostname}"
+else
+	nfsroot="/path/to/nfs/root"
+fi
+
+autoboot_timeout=3
+
+bootargs="console=ttymxc1,115200"
+
+# set a fancy prompt (if support is compiled in)
+PS1="\e[1;32mbarebox@\e[1;31m\h:\w\e[0m "
+
+global linux.bootargs.init
+global.linux.bootargs.init='init=/lib/systemd/systemd'
+
+global linux.bootargs.root
+global.linux.bootargs.root='root=/dev/mmcblk0p2 rootwait rw'
+
+global linux.bootargs.misc
+global.linux.bootargs.misc='consoleblank=0 splash'

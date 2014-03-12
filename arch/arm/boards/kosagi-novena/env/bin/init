@@ -1,0 +1,41 @@
+#!/bin/sh
+
+PATH=/env/bin
+export PATH
+
+# Flip on USB power
+i2c_write -b 1 -a 0x08 -r 0x66 0x48
+
+# Set CPU voltage to 1.2V
+i2c_write -b 1 -a 0x08 -r 0x20 0x26
+
+global hostname
+
+autoboot_timeout=1
+. /env/config-board
+. /env/config
+
+if [ -e /dev/disk0 -a -n "$disk_parts" ]; then
+	addpart /dev/disk0 $disk_parts
+fi
+
+if [ -f /env/bin/init_board ]; then
+	. /env/bin/init_board
+fi
+
+if [ -f /env/bin/boot_board ]; then
+	. /env/bin/boot_board
+elif [ -n $autoboot_timeout ]; then
+	echo
+	echo -n "Hit any key to stop autoboot: "
+	timeout -a $autoboot_timeout
+	if [ $? != 0 ]; then
+		exit
+	fi
+
+	mkdir /dev
+	mount /dev/mmc2.0
+	bootm -o /mnt/mmc2.0/imx6dl-novena.dtb /mnt/mmc2.0/zImage
+
+	boot
+fi
