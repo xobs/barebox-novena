@@ -95,6 +95,9 @@ ENTRY_FUNCTION(start_imx6dl_kosagi_novena_6dl, r0, r1, r2)
 	uint32_t fdt;
 	uint32_t ram_size;
 
+	/* Save RAM size to SRC for use outside of lowlevel.c */
+	writel(r0, MX6_SRC_BASE_ADDR + 0x20);
+
 	ram_size = r0;
 	if (ram_size > SZ_1G)
 		ram_size = SZ_1G;

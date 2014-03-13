@@ -44,3 +44,11 @@ static int kosagi_novena_init(void)
 	return 0;
 }
 device_initcall(kosagi_novena_init);
+
+static int kosagi_novena_mem_init(void)
+{
+	/* Pull out RAM capacity, which was stored here in lowlevel.c */
+	arm_add_mem_device("ram0", 0x10000000, readl(MX6_SRC_BASE_ADDR + 0x20));
+	return 0;
+}
+mem_initcall(kosagi_novena_mem_init);

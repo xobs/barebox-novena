@@ -1,8 +1,18 @@
-/ {
-	memory {
-		reg = <0x10000000 0x40000000>;
-	};
+/*
+ * Copyright 2014 Kosagi
+ * Copyright 2011 Freescale Semiconductor, Inc.
+ * Copyright 2011 Linaro Ltd.
+ *
+ * The code contained herein is licensed under the GNU General Public
+ * License. You may obtain a copy of the GNU General Public License
+ * Version 2 or later at the following locations:
+ *
+ * http://www.opensource.org/licenses/gpl-license.html
+ * http://www.gnu.org/copyleft/gpl.html
+ */
+#include <dt-bindings/gpio/gpio.h>
 
+/ {
 	regulators {
 		compatible = "simple-bus";
 
@@ -36,6 +46,21 @@
 	pinctrl-0 = <&pinctrl_enet>;
 	status = "okay";
 	phy-mode = "rgmii";
+        phy-reset-gpios = <&gpio3 23 GPIO_ACTIVE_LOW>;
+        txen-skew-ps = <0>;
+        txc-skew-ps = <3000>;
+        rxdv-skew-ps = <0>;
+        rxc-skew-ps = <3000>;
+        rxd0-skew-ps = <0>;
+        rxd1-skew-ps = <0>;
+        rxd2-skew-ps = <0>;
+        rxd3-skew-ps = <0>;
+        txd0-skew-ps = <0>;
+        txd1-skew-ps = <0>;
+        txd2-skew-ps = <0>;
+        txd3-skew-ps = <0>;
+        interrupts-extended = <&gpio1 6 IRQ_TYPE_LEVEL_HIGH>,
+                              <&intc 0 119 IRQ_TYPE_LEVEL_HIGH>;
 };
 
 &iomuxc {
@@ -230,9 +255,9 @@
 	vbus-supply = <&reg_usb_otg_vbus>;
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_usbotg>;
-	disable-over-current;
-	dr_mode = "otg";
 	phy_type = "utmi";
+	dr_mode = "otg";
+	disable-over-current;
 	status = "okay";
 };
 
